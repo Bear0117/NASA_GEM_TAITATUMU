@@ -44,7 +44,7 @@ This repository is organized into a three-stage sequential workflow:
    - Proton density
    - Proton temperature
    
-   *Result*: The regression models successfully reconstruct physical solar wind parameters from raw spectra with exceptionally high accuracy (R-squared: 0.9960).
+   *Result*: The regression models successfully reconstruct physical solar wind parameters from raw spectra with high accuracy.
    <div align="center">
      <img src="02_solar_wind_estimation/results.jpg" width="60%" alt="Module 2 Regression Results">
    </div>
