@@ -25,10 +25,19 @@ Our system provides early warnings for geomagnetic storms to reduce risks to ter
 
 ## Pipeline Architecture
 
+<div align="center">
+  <img src="https://assets.spaceappschallenge.org/media/images/Prediction_Workflow_8JpJzrT.width-1024.png" width="80%" alt="Pipeline Architecture Workflow">
+</div>
+
 This repository is organized into a three-stage sequential workflow:
 
 1. **Module 1 (`01_anomaly_detection/`)**: 
    Classifies each DSCOVR spectrum as normal or anomalous. By identifying anomalies, we prevent corrupted input from degrading downstream models, instead modeling them explicitly.
+   
+   *Result*: The binary classification model effectively distinguishes between normal and anomalous signals, preventing downstream errors.
+   <div align="center">
+     <img src="https://assets.spaceappschallenge.org/media/images/CM_ilcUKnY.width-1024.png" width="45%" alt="Module 1 Confusion Matrix">
+   </div>
    
 2. **Module 2 (`02_solar_wind_estimation/`)**: 
    Estimates three core physical properties from the raw spectra:
@@ -38,6 +47,12 @@ This repository is organized into a three-stage sequential workflow:
    
 3. **Module 3 (`03_kp_forecasting/`)**: 
    A time-series prediction module (using Recurrent Neural Networks) that forecasts the next hour's Kp index based on the previous hours of estimated solar-wind values. A predicted $Kp \geq 5$ is classified as a geomagnetic storm event.
+   
+   *Result*: The RNN achieves strong predictive performance, successfully capturing the occurrence and severity of Kp index peaks.
+   <div align="center">
+     <img src="03_kp_forecasting/prediction.png" width="48%" alt="Kp Index Prediction">
+     <img src="03_kp_forecasting/occurence.png" width="48%" alt="Kp Occurrence Frequency">
+   </div>
 
 ## Repository Structure
 
