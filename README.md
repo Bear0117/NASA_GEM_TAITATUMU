@@ -33,8 +33,7 @@ This repository is organized into a three-stage sequential workflow:
 
 1. **Module 1 (`01_anomaly_detection/`)**: 
    Classifies each DSCOVR spectrum as normal or anomalous. By identifying anomalies, we prevent corrupted input from degrading downstream models, instead modeling them explicitly.
-   
-   *Result*: The binary classification model effectively distinguishes between normal and anomalous signals, preventing downstream errors.
+   *Result*: Because the dataset is heavily imbalanced with mostly normal signals, our primary focus is successfully catching the rare "abnormal" signals (Recall). The model achieves a high recall (0.8056) for abnormal data, effectively preventing corrupted input from silently degrading the downstream steps.
    <div align="center">
      <img src="https://assets.spaceappschallenge.org/media/images/CM_ilcUKnY.width-1024.png" width="45%" alt="Module 1 Confusion Matrix">
    </div>
@@ -45,13 +44,17 @@ This repository is organized into a three-stage sequential workflow:
    - Proton density
    - Proton temperature
    
-3. **Module 3 (`03_kp_forecasting/`)**: 
-   A time-series prediction module (using Recurrent Neural Networks) that forecasts the next hour's Kp index based on the previous hours of estimated solar-wind values. A predicted $Kp \geq 5$ is classified as a geomagnetic storm event.
-   
-   *Result*: The RNN achieves strong predictive performance, successfully capturing the occurrence and severity of Kp index peaks.
+   *Result*: The regression models successfully reconstruct physical solar wind parameters from raw spectra with exceptionally high accuracy (R-squared: 0.9960).
    <div align="center">
-     <img src="03_kp_forecasting/prediction.png" width="48%" alt="Kp Index Prediction">
-     <img src="03_kp_forecasting/occurence.png" width="48%" alt="Kp Occurrence Frequency">
+     <img src="02_solar_wind_estimation/results.jpg" width="60%" alt="Module 2 Regression Results">
+   </div>
+   
+3. **Module 3 (`03_kp_forecasting/`)**: 
+   A time-series prediction module (using a Bidirectional Long Short-Term Memory network, Bi-LSTM) that forecasts the next hour's Kp index based on the previous hours of estimated solar-wind values. A predicted $Kp \geq 5$ is classified as a geomagnetic storm event.
+   
+   *Result*: The Bi-LSTM achieves strong predictive performance, successfully capturing the occurrence and severity of Kp index peaks.
+   <div align="center">
+     <img src="03_kp_forecasting/occurence.png" width="60%" alt="Kp Occurrence Frequency">
    </div>
 
 ## Repository Structure
